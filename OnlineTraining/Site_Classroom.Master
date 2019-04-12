@@ -1,0 +1,183 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site_Classroom.master.cs" Inherits="OnlineTraining.Site_Classroom" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <title>OnlineTraining - Classroom</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="Content/mobile-navbar.css" rel="stylesheet" />-->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="Content/bootsnipp.min.css" rel="stylesheet" />-->
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function (event) {
+                event.preventDefault();
+                $('body').toggleClass('navbar-more-show');
+                if ($('body').hasClass('navbar-more-show')) {
+                    $('a[href="#navbar-more-show"]').closest('li').addClass('active');
+                } else {
+                    $('a[href="#navbar-more-show"]').closest('li').removeClass('active');
+                }
+                return false;
+            });
+
+            $('li').click(function () {
+                $('.navbar > li').removeClass("active");
+            });
+        });
+    </script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 800px;
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="Default.aspx">AVTECH</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="li_Default"><a href="Classroom.aspx" style="text-align: center">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <p>課程首頁</p>
+                    </a></li>
+                    <li id="li_MyClass"><a href="Classroom_Detail.aspx" style="text-align: center">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        <p>開班資訊</p>
+                    </a></li>
+                    <li id="li_MyTrainingRecord"><a href="Classroom_Record.aspx" style="text-align: center">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        <p>學習紀錄</p>
+                    </a></li>
+                    <li id="li_ClassInfo"><a href="<%:Session["ClassroomBackPage"]%>" style="text-align: center">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        <p>離開</p>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <form runat="server">
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-md-2 sidenav">
+                    <asp:ContentPlaceHolder ID="LeftContent" runat="server" />
+                </div>
+
+                <div class="col-md-8 text-left" style="margin-top: 15px;" id="main_content">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                </div>
+
+                <div class="col-md-2 sidenav">
+
+                    <asp:ContentPlaceHolder ID="RightContent" runat="server" />
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <footer class="container-fluid text-center">
+        <p>© 2019 Powered by AVTECH</p>
+    </footer>
+    <!--<nav class="navbar navbar-bootsnipp navbar-fixed-top animate">
+        <div class="container navbar-more visible-xs">
+            <ul class="nav navbar-nav">
+                <li><a href="#"><span class="menu-icon glyphicon glyphicon-user"></span>***</a></li>
+                <li><a href="#"><span class="menu-icon glyphicon glyphicon-pencil"></span>***</a></li>
+                <li><a href="#"><span class="menu-icon glyphicon glyphicon-list-alt"></span>***</a></li>
+                <li><a href="#"><span class="menu-icon glyphicon glyphicon-log-out"></span>***</a></li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="row col-md-offset-2 col-md-8">
+                <ul class="nav navbar-nav mobile-bar navbar-right">
+                    <li class="li">
+                        <a href="Classroom.aspx" style="text-align: center">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <p>課程首頁</p>
+                        </a>
+                    </li>
+                    <li class="li">
+                        <a href="Classroom_Detail.aspx" style="text-align: center">
+                            <span class="fa fa-info-circle"></span>
+                            <p>開班資訊</p>
+                        </a>
+                    </li>
+                    <li class="li">
+                        <a href="Classroom_Record.aspx" style="text-align: center">
+                            <span class="fa fa-user"></span>
+                            <p>學習紀錄</p>
+                        </a>
+                    </li>
+                    <li class="text-center" style="text-align: center">
+                        <a href="<%:Session["ClassroomBackPage"]%>">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            <p>離開</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="container" style="margin-top: 50px">
+            <div class="col-md-12">
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="col-md-12 well text-center">
+                Footer
+            </div>
+        </div>
+    </div>-->
+</body>
+</html>

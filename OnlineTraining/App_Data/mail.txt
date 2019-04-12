@@ -1,0 +1,6 @@
+﻿親愛的用戶,
+您的<<System>>帳號為:<<Account>>，密碼已重設為:<<ResetPassword>>。
+請點擊下列網址，連結至網址登入。
+<<ResetURL>>
+
+日期<<Date>>
