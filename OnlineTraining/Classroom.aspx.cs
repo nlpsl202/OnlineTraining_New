@@ -21,6 +21,7 @@ namespace OnlineTraining
             sqlObj.StoreProcedureName = "SP_Qry_ClassSub";
             sqlObj.SetupSqlCommand(ref sErrMsg);
             sqlObj.SqlCmd.Parameters["@ClassNo"].Value = Session["ClassNo"].ToString();
+            sqlObj.SqlCmd.Parameters["@Account"].Value = Session["Account"].ToString();
             try
             {
                 sqlObj.SqlConn.Open();

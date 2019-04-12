@@ -172,6 +172,8 @@
     <Content Include="Content\mobile-navbar.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Exam.aspx" />
+    <Content Include="ExamStart.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="ForgotPassword.aspx" />
@@ -196,6 +198,11 @@
     <Content Include="MyInfo.aspx" />
     <Content Include="MyTrainingRecord.aspx" />
     <Content Include="players\Chapter1_video.mp4" />
+    <Content Include="players\Chapter2_video.mp4" />
+    <Content Include="players\Chapter3_video.mp4" />
+    <Content Include="players\Chapter4_video.mp4" />
+    <Content Include="players\Chapter5_video.mp4" />
+    <Content Include="players\Chapter7_video.mp4" />
     <Content Include="RejectDocList.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -294,6 +301,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exam.aspx.cs">
+      <DependentUpon>Exam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exam.aspx.designer.cs">
+      <DependentUpon>Exam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExamStart.aspx.cs">
+      <DependentUpon>ExamStart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExamStart.aspx.designer.cs">
+      <DependentUpon>ExamStart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
