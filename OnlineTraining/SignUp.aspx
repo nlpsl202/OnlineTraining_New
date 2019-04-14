@@ -17,42 +17,50 @@
             });
             var totalTxb = $('.txb').length;
             $("#Submit_btn").click(function () {
-                for (var i = 0; i < totalTxb; i++) {
-                    if ($('.txb:eq(' + i + ')').val() == '') {
-                        alert('尚有未輸入的資料!');
+                var testEmail = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                if (testEmail.test($("#Email_txb").val())) {
+                    for (var i = 0; i < totalTxb; i++) {
+                        if ($('.txb:eq(' + i + ')').val() == '') {
+                            alert('尚有未輸入的資料!');
+                            return false;
+                        }
+                    }
+
+                    if ($('#Password_txb').val() != $('#PasswordConfirm_txb').val()) {
+                        alert('密碼與確認密碼不相符!');
                         return false;
                     }
-                }
 
-                if ($('#Password_txb').val() != $('#PasswordConfirm_txb').val()) {
-                    alert('密碼與確認密碼不相符!');
+                    var para =
+                        {
+                            'Account': $('#Account_txb').val(), 'Password': $('#Password_txb').val(),
+                            'FirstName': $('#FirstName_txb').val(), 'MidName': $('#MidName_txb').val(),
+                            'LastName': $('#LastName_txb').val(), 'Email': $('#Email_txb').val(),
+                            'Gender': $("input:radio[name='Gender_rdo']:checked").val(), 'CompanyType': $('#CompanyType_ddl :selected').val(),
+                            'CompanyName': $('#CompanyName_txb').val(), 'Division': $('#Division_txb').val(),
+                            'Country': $('#Country_ddl :selected').val(), 'Address': $('#Address_txb').val(),
+                            'Title': $('#Title_txb').val(), 'Phone': $('#Phone_txb').val()
+                        };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "SignUp.aspx/InsertToMember",
+                        data: JSON.stringify(para),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            alert(response.d);
+                            if (response.d.indexOf("成功") >= 0) {
+                                window.location = "Login.aspx";
+                            }
+                        }
+                    });
+                }
+                else {
+                    alert("Email格式不正確！")
                     return false;
                 }
 
-                var para =
-                    {
-                        'Account': $('#Account_txb').val(), 'Password': $('#Password_txb').val(),
-                        'FirstName': $('#FirstName_txb').val(), 'MidName': $('#MidName_txb').val(),
-                        'LastName': $('#LastName_txb').val(), 'Email': $('#Email_txb').val(),
-                        'Gender': $("input:radio[name='Gender_rdo']:checked").val(), 'CompanyType': $('#CompanyType_ddl :selected').val(),
-                        'CompanyName': $('#CompanyName_txb').val(), 'Division': $('#Division_txb').val(),
-                        'Country': $('#Country_ddl :selected').val(), 'Address': $('#Address_txb').val(),
-                        'Title': $('#Title_txb').val(), 'Phone': $('#Phone_txb').val()
-                    };
-
-                $.ajax({
-                    type: "POST",
-                    url: "SignUp.aspx/InsertToMember",
-                    data: JSON.stringify(para),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        alert(response.d);
-                        if (response.d.indexOf("成功") >= 0) {
-                            window.location = "Login.aspx";
-                        }
-                    }
-                });
             });
         });
     </script>
