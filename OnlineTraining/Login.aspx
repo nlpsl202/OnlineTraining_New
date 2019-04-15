@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-    <div class="jumbotron vertical-center">
+    <div class="jumbotron vertical-center cover">
         <div class="container">
             <div class="d-flex justify-content-center h-100">
                 <div class="card">

@@ -12,84 +12,202 @@
     <script src="Scripts/vue.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#Back_btn").click(function () {
+                window.location = "Exam.aspx";
+            });
+
+            $("#Submit_btn").click(function () {
+                var question_count = $(".question").length;
+                var question_right_count = 0;
+                for (var i = 1; i <= question_count; i++) {
+                    if ($($("input[name='" + i + "']:checked").prop("labels")).text() == $("input[name='" + i + "']").val()) {
+                        question_right_count++;
+                    }
+                }
+                alert(4 * question_right_count);
+            });
+
             $.ajax({
                 type: "POST",
-                url: "Classroom_Record.aspx/GetRecordInfo",
+                url: "ExamStart.aspx/GetQuestionInfo",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     new Vue({
-                        el: '#RecordInfo',
+                        el: '#questionInfo',
                         data: {
-                            recordInfos: JSON.parse(response.d)
+                            questionInfos: JSON.parse(response.d)
                         },
                     });
                 }
             });
+
+            var seconds = <%:Session["ExamTimeInt"]%> * 60;
+            var spendSeconds = <%:Session["ExamTimeInt"]%> * 60;
+            setInterval(function () {
+                seconds--;
+                spendSeconds++;
+                $("#LeftTime").text(paddingLeft(parseInt(seconds / 3600).toString(), 2) + ':' + paddingLeft(parseInt(seconds % 3600 / 60).toString(), 2) + ':' + paddingLeft((seconds % 3600 % 60).toString(), 2));
+                if (seconds == 0) {
+                    $('#Submit_btn').trigger('click');
+                }
+            }, 1000);
+
+            function paddingLeft(str, lenght) {
+                if (str.length >= lenght)
+                    return str;
+                else
+                    return paddingLeft("0" + str, lenght);
+            }
         });
     </script>
+    <style>
+        table > tbody > tr > td > table > tbody > tr > th {
+            text-align: center;
+            background-color:#999999;
+            color:#ffffff;
+        }
+
+        table > tbody > tr > td > table > tbody > tr > td {
+            width: 1000px;
+            height: 50px;
+            text-align: center;
+        }
+
+            table > tbody > tr > td > table > tbody > tr > td:nth-child(1) {
+                width: 100px;
+                height: 50px;
+            }
+
+            table > tbody > tr > td > table > tbody > tr > td > table > tbody > tr > td {
+                height: 40px;
+            }
+
+        .navbar {
+            min-height: 50px;
+        }
+
+            .navbar > div {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                line-height: 30px;
+            }
+
+        body {
+            padding-top: 200px;
+        }
+
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 1000px) {
+            body {
+                padding-top: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container-fluid text-center">
-            <div class="row content well">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
                 <div class="col-md-12">
-                    <div class="col-md-1 col-md-offset-2">
-                        <p>作答時間：</p>
+                    <div class="col-md-3 col-md-offset-2">
+                        <label class="col-md-6">作答時間：</label>
+                        <label class="col-md-6"><%:Session["ExamTime"]%></label>
                     </div>
 
-                    <div class="col-md-2">
-                        <p class="pull-left">01:30:00</p>
+                    <div class="col-md-3">
+                        <label class="col-md-6">剩餘時間：</label>
+                        <label class="col-md-6" id="LeftTime"><%:Session["ExamTime"]%></label>
                     </div>
 
-                    <div class="col-md-1">
-                        <p>剩餘時間：</p>
-                    </div>
-
-                    <div class="col-md-2">
-                        <p class="pull-left">01:30:00</p>
+                    <div class="col-md-4">
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-primary btn-block" id="Submit_btn">交卷</button>
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-default btn-block" id="Back_btn">放棄考試</button>
+                        </div>
                     </div>
                 </div>
             </div>
+        </nav>
 
-            <div class="row content">
-                <div class="col-md-12">
-                    <div class="col-md-12 well" id="RecordInfo">
-                        <table>
-                            <tbody>
-                                <tr v-for="item in recordInfos" id="question">
-                                    <td>
-                                        <table class="table-bordered">
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <div class="col-md-12" id="questionInfo">
+                    <table>
+                        <tbody>
+                            <tr v-for="item in questionInfos" class="question">
+                                <td>
+                                    <table class="table-bordered">
+                                        <tbody>
                                             <tr>
                                                 <th>題號</th>
                                                 <th>題目</th>
                                             </tr>
                                             <tr>
-                                                <td style="width: 100px; height: 50px;">1</td>
-                                                <td style="width: 1000px; height: 50px;">{{item.ChapterName}} {{item.ChapterName}} {{item.ChapterName}} {{item.ChapterName}} {{item.ChapterName}} {{item.ChapterName}} {{item.ChapterName}} {{item.ChapterName}} {{item.ChapterName}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 100px; height: 50px;">作答區</td>
-                                                <td style="width: 1000px; height: 50px;">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" :name="item.ChapterName">A</label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" :name="item.ChapterName">B</label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" :name="item.ChapterName">C</label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" :name="item.ChapterName">D</label>
+                                                <td>{{item.QuestionNo}}</td>
+                                                <td v-if="item.QuestionType ==1">{{item.QuestionName}}</td>
+                                                <td v-else>
+                                                    <table style="width: 100%; height: 100%;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="color: red;">{{item.QuestionName}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>A.{{item.OptionA}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>B.{{item.OptionB}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>C.{{item.OptionC}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>D.{{item.OptionD}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </td>
                                             </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                            <tr>
+                                                <td>作答區</td>
+                                                <td v-if="item.QuestionType ==1">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" :name="item.QuestionNo" :value="item.Answer">O</label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" :name="item.QuestionNo" :value="item.Answer">X</label>
+                                                </td>
+                                                <td v-else>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" :name="item.QuestionNo" :value="item.Answer">A</label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" :name="item.QuestionNo" :value="item.Answer">B</label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" :name="item.QuestionNo" :value="item.Answer">C</label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" :name="item.QuestionNo" :value="item.Answer">D</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
+        <footer class="container-fluid text-center">
+            <p>© 2019 Powered by AVTECH</p>
+        </footer>
     </form>
 </body>
 </html>
