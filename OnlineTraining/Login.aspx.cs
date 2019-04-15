@@ -26,6 +26,7 @@ namespace OnlineTraining
             sqlObj.SqlCmd.Parameters["@Account"].Value = Account;
             sqlObj.SqlCmd.Parameters["@Password"].Value = Password;
             sqlObj.SqlCmd.Parameters["@ReturnName"].Value = DBNull.Value;
+            sqlObj.SqlCmd.Parameters["@ReturnDivision"].Value = DBNull.Value;
             sqlObj.SqlCmd.Parameters["@ReturnMsg"].Value = DBNull.Value;
             try
             {
@@ -33,6 +34,7 @@ namespace OnlineTraining
                 sqlObj.SqlCmd.ExecuteNonQuery();
                 HttpContext.Current.Session["Account"] = Account;
                 HttpContext.Current.Session["MemberName"] = sqlObj.SqlCmd.Parameters["@ReturnName"].Value.ToString();
+                HttpContext.Current.Session["Division"] = sqlObj.SqlCmd.Parameters["@ReturnDivision"].Value.ToString();
                 sErrMsg = sqlObj.SqlCmd.Parameters["@ReturnMsg"].Value.ToString();
             }
             catch (Exception ex)
