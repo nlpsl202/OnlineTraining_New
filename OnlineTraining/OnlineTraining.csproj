@@ -173,6 +173,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Exam.aspx" />
+    <Content Include="ExamResult.aspx" />
     <Content Include="ExamStart.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -309,6 +310,12 @@
     </Compile>
     <Compile Include="Exam.aspx.designer.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExamResult.aspx.cs">
+      <DependentUpon>ExamResult.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExamResult.aspx.designer.cs">
+      <DependentUpon>ExamResult.aspx</DependentUpon>
     </Compile>
     <Compile Include="ExamStart.aspx.cs">
       <DependentUpon>ExamStart.aspx</DependentUpon>

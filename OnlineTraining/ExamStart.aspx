@@ -19,12 +19,52 @@
             $("#Submit_btn").click(function () {
                 var question_count = $(".question").length;
                 var question_right_count = 0;
+                var answersJson = "[";
                 for (var i = 1; i <= question_count; i++) {
                     if ($($("input[name='" + i + "']:checked").prop("labels")).text() == $("input[name='" + i + "']").val()) {
                         question_right_count++;
                     }
+
+                    if (i != 1) {
+                        answersJson = answersJson + ",";
+                    }
+
+                    if ($(".questionName" + i).hasClass('OX')) {
+                        answersJson = answersJson + '{"QuestionNo":"' + i + '",' +
+                            '"QuestionName":"' + $(".questionName" + i).html() + '",' +
+                            '"QuestionType":"1",' +
+                            '"Answer":"' + $("input[name='" + i + "']").val() + '",' +
+                            '"MemberAnswer":"' + $($("input[name='" + i + "']:checked").prop("labels")).text() + '"}'
+                    } else {
+                        answersJson = answersJson + '{"QuestionNo":"' + i + '",' +
+                            '"QuestionName":"' + $(".questionName" + i).html() + '",' +
+                            '"QuestionType":"2",' +
+                            '"Answer":"' + $("input[name='" + i + "']").val() + '",' +
+                            '"MemberAnswer":"' + $($("input[name='" + i + "']:checked").prop("labels")).text() + '",' +
+                            '"OptionA":"' + $(".optionA" + i).html() + '",' +
+                            '"OptionB":"' + $(".optionB" + i).html() + '",' +
+                            '"OptionC":"' + $(".optionC" + i).html() + '",' +
+                            '"OptionD":"' + $(".optionD" + i).html() + '"}'
+                    }
                 }
-                alert(4 * question_right_count);
+                answersJson = answersJson + "]";
+
+                var para = {
+                    'ExamScore': 4 * question_right_count,
+                    'ExamTime': paddingLeft(parseInt(spendSeconds / 3600).toString(), 2) + ':' + paddingLeft(parseInt(spendSeconds % 3600 / 60).toString(), 2) + ':' + paddingLeft((spendSeconds % 3600 % 60).toString(), 2),
+                    'MemberAnswers': answersJson
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "ExamStart.aspx/SubmitExam",
+                    data: JSON.stringify(para),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        window.location = "ExamResult.aspx";
+                    }
+                });
             });
 
             $.ajax({
@@ -43,7 +83,7 @@
             });
 
             var seconds = <%:Session["ExamTimeInt"]%> * 60;
-            var spendSeconds = <%:Session["ExamTimeInt"]%> * 60;
+            var spendSeconds = 0;
             setInterval(function () {
                 seconds--;
                 spendSeconds++;
@@ -64,8 +104,8 @@
     <style>
         table > tbody > tr > td > table > tbody > tr > th {
             text-align: center;
-            background-color:#999999;
-            color:#ffffff;
+            background-color: #999999;
+            color: #ffffff;
         }
 
         table > tbody > tr > td > table > tbody > tr > td {
@@ -153,24 +193,24 @@
                                             </tr>
                                             <tr>
                                                 <td>{{item.QuestionNo}}</td>
-                                                <td v-if="item.QuestionType ==1">{{item.QuestionName}}</td>
+                                                <td v-if="item.QuestionType ==1" :class="'questionName'+item.QuestionNo+' OX'">{{item.QuestionName}}</td>
                                                 <td v-else>
                                                     <table style="width: 100%; height: 100%;">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="color: red;">{{item.QuestionName}}</td>
+                                                                <td style="color: red;" :class="'questionName'+item.QuestionNo">{{item.QuestionName}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>A.{{item.OptionA}}</td>
+                                                                <td :class="'optionA'+item.QuestionNo">A.{{item.OptionA}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>B.{{item.OptionB}}</td>
+                                                                <td :class="'optionB'+item.QuestionNo">B.{{item.OptionB}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>C.{{item.OptionC}}</td>
+                                                                <td :class="'optionC'+item.QuestionNo">C.{{item.OptionC}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>D.{{item.OptionD}}</td>
+                                                                <td :class="'optionD'+item.QuestionNo">D.{{item.OptionD}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
