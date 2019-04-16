@@ -71,5 +71,36 @@ namespace OnlineTraining
             }
             return new JavaScriptSerializer().Serialize(questionInfos);
         }
+
+        [WebMethod]
+        public static string SubmitExam(int ExamScore,string ExamTime,string MemberAnswers)
+        {
+            string sErrMsg = string.Empty;
+            DBUtility sqlObj = null;
+            sqlObj = new DBUtility();
+            sqlObj.StoreProcedureName = "SP_UI_MemberExam";
+            sqlObj.SetupSqlCommand(ref sErrMsg);
+            sqlObj.SqlCmd.Parameters["@Account"].Value = HttpContext.Current.Session["Account"].ToString();
+            sqlObj.SqlCmd.Parameters["@ClassNo"].Value = HttpContext.Current.Session["ClassNo"].ToString();
+            sqlObj.SqlCmd.Parameters["@ExamID"].Value = HttpContext.Current.Session["ExamID"].ToString();
+            sqlObj.SqlCmd.Parameters["@ExamScore"].Value = ExamScore;
+            sqlObj.SqlCmd.Parameters["@ExamTime"].Value = ExamTime;
+            sqlObj.SqlCmd.Parameters["@ExamStartTime"].Value = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            sqlObj.SqlCmd.Parameters["@MemberAnswers"].Value = MemberAnswers;
+            try
+            {
+                sqlObj.SqlConn.Open();
+                sqlObj.SqlCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                sqlObj.SqlConn.Close();
+            }
+            return "success";
+        }
     }
 }
