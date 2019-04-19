@@ -61,7 +61,7 @@
                 $.ajax({
                     type: "POST",
                     url: "ExamStart.aspx/SubmitExam",
-                    data: JSON.stringify(para),
+                    data: JSON.stringify(parm),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {

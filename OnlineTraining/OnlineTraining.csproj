@@ -406,7 +406,6 @@
     </Compile>
     <Compile Include="Exam.aspx.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Exam.aspx.designer.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
@@ -434,7 +433,6 @@
     </Compile>
     <Compile Include="ExamStart.aspx.cs">
       <DependentUpon>ExamStart.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ExamStart.aspx.designer.cs">
       <DependentUpon>ExamStart.aspx</DependentUpon>
