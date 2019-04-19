@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace OnlineTraining
 {
-    public class ExamResultInfo
+    /*public class ExamResultInfo
     {
         public string ExamName { get; set; }
         public string ExamPaperName { get; set; }
@@ -19,7 +19,7 @@ namespace OnlineTraining
         public string ExamTime { get; set; }
         public string ExamScore { get; set; }
         public string Pass { get; set; }
-    }
+    }*/
 
     public partial class ExamResult : System.Web.UI.Page
     {
@@ -28,7 +28,7 @@ namespace OnlineTraining
 
         }
 
-        [WebMethod]
+        /*[WebMethod]
         public static string GetExamResultInfo()
         {
             ExamResultInfo examInfo = new ExamResultInfo();
@@ -93,6 +93,6 @@ namespace OnlineTraining
                 sqlObj.SqlConn.Close();
             }
             return dt.Rows[0]["MemberAnswers"].ToString();
-        }
+        }*/
     }
 }

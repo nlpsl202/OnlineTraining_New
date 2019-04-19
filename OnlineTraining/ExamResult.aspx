@@ -16,33 +16,49 @@
                 window.location = "Classroom.aspx";
             });
 
+            var dataJSON_title = {
+                Account: "<%:Session["Account"]%>", ClassNo: "<%:Session["ClassNo"]%>",
+                ExamID: "<%:Session["ExamID"]%>", ExamNo: 0,
+                XOLTP: 1
+            };
+
             $.ajax({
                 type: "POST",
-                url: "ExamResult.aspx/GetExamResultInfo",
+                url: "api/ExamResult",
+                data: JSON.stringify(dataJSON_title),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     new Vue({
                         el: '#examInfo',
                         data: {
-                            examInfo: JSON.parse(response.d)
+                            examInfo: JSON.parse(response)
                         },
                     });
+                    $(".asnwerTable").css("visibility", 'visible');
                 }
             });
 
+            var dataJSON_table = {
+                Account: "<%:Session["Account"]%>", ClassNo: "<%:Session["ClassNo"]%>",
+                ExamID: "<%:Session["ExamID"]%>", ExamNo: 0,
+                XOLTP: 2
+            };
+
             $.ajax({
                 type: "POST",
-                url: "ExamResult.aspx/GetExamResultAnswer",
+                url: "api/ExamResult",
+                data: JSON.stringify(dataJSON_table),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     new Vue({
                         el: '#examAnswer',
                         data: {
-                            examAnswers: JSON.parse(response.d)
+                            examAnswers: JSON.parse(response)
                         },
                     });
+                    $("#dataConent").css("visibility", 'visible');
                 }
             });
         });
@@ -63,13 +79,13 @@
             border-left: 1px solid #ddd;
         }
 
-        .td-center{
+        .td-center {
             width: 100px;
-            text-align:center;
+            text-align: center;
         }
-        
-        .td-padding{
-            padding-left:10px;
+
+        .td-padding {
+            padding-left: 10px;
         }
 
         .asnwerTable {
@@ -77,8 +93,8 @@
             border-spacing: 0 1em;
         }
 
-        .examInfoTable > tbody > tr > td{
-            text-align:center;
+        .examInfoTable > tbody > tr > td {
+            text-align: center;
         }
 
         .navbar {
@@ -121,7 +137,7 @@
             </div>
         </nav>
 
-        <div class="container-fluid">
+        <div class="container-fluid" id="dataConent" style="visibility: hidden;">
             <div class="col-md-12">
                 <div class="col-md-12" id="examInfo">
                     <table class="table-bordered examInfoTable">
@@ -149,7 +165,7 @@
                 </div>
 
                 <div class="col-md-12" id="examAnswer" style="margin-top: 50px;">
-                    <table class="asnwerTable">
+                    <table class="asnwerTable" style="visibility: hidden;">
                         <tbody>
                             <tr v-for="item in examAnswers" class="question">
                                 <td class="td-questionNo td-center">第{{item.QuestionNo}}題</td>

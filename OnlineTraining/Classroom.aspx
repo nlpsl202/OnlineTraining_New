@@ -22,7 +22,14 @@
                             window.location = "ClassVideo.aspx";
                         }
                     });
+                });
+            });
 
+            $(s.GetMainElement()).find(".exam-grade").click(function () {
+                if (s.InCallback()) return;
+                var $btn = $(this);
+                s.GetRowValues($btn.attr("data-key"), 'ExamID;ExamNo', function (values) {
+                    location.href = "ExamRecordResult.aspx?" + values[0]+"&"+values[1];
                 });
             });
         }
@@ -63,9 +70,16 @@
                         </dx:BootstrapGridViewDataColumn>
                         <dx:BootstrapGridViewDataColumn FieldName="StartDateType" Caption="活動期間" />
                         <dx:BootstrapGridViewDataColumn FieldName="PassCondition" Caption="通過條件" />
-                        <dx:BootstrapGridViewDataColumn FieldName="ReadTime" Caption="學習成果" />
+                        <dx:BootstrapGridViewDataColumn Caption="學習成果">
+                            <DataItemTemplate>
+                                <label class="<%# DataBinder.Eval(Container.DataItem, "ExamNo").ToString() != "0" ? "hidden" : String.Empty %>"><%# DataBinder.Eval(Container.DataItem, "ReadTime").ToString()%></label>
+                                <a href="#" class="<%# DataBinder.Eval(Container.DataItem, "ExamNo").ToString() == "0" ? "hidden" : String.Empty %> exam-grade" data-key="<%# Container.VisibleIndex %>">檢視成績</a>
+                            </DataItemTemplate>
+                        </dx:BootstrapGridViewDataColumn>
                         <dx:BootstrapGridViewDataColumn FieldName="Pass" Caption="通過狀態" />
                         <dx:BootstrapGridViewDataColumn FieldName="VideoPath" Visible="false" />
+                        <dx:BootstrapGridViewDataColumn FieldName="ExamNo" Visible="false" />
+                        <dx:BootstrapGridViewDataColumn FieldName="ExamID" Visible="false" />
                     </Columns>
                 </dx:BootstrapGridView>
             </div>

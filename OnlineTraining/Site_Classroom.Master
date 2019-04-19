@@ -6,11 +6,13 @@
     <title>OnlineTraining - Classroom</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<link href="Content/mobile-navbar.css" rel="stylesheet" />-->
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
-    <!--<link href="Content/bootsnipp.min.css" rel="stylesheet" />-->
+    <link href="Content/bootstrap-datetimepicker.css" rel="stylesheet" />
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/vue.js"></script>
+    <script src="Scripts/moment.js"></script>
+    <script src="Scripts/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function (event) {
@@ -71,14 +73,6 @@
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="Default.aspx">AVTECH</a>
-            </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li id="li_Default"><a href="Classroom.aspx" style="text-align: center">

@@ -66,7 +66,6 @@
 
         function initMoreButton(s, e) {
             $(s.GetMainElement()).find(".into-classroom").click(function () {
-
                 if (s.InCallback()) return;
                 var $btn = $(this);
                 s.GetRowValues($btn.attr("data-key"), 'ClassNo', function (values) {
