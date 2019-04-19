@@ -10,11 +10,14 @@
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/vue.js"></script>
+    <script src="Scripts/moment.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#Back_btn").click(function () {
                 window.location = "Exam.aspx";
             });
+
+            var StartTime = moment().format('YYYY/MM/DD HH:mm:ss');
 
             $("#Submit_btn").click(function () {
                 var question_count = $(".question").length;
@@ -49,7 +52,7 @@
                 }
                 answersJson = answersJson + "]";
 
-                var para = {
+                var parm = {
                     'ExamScore': 4 * question_right_count,
                     'ExamTime': paddingLeft(parseInt(spendSeconds / 3600).toString(), 2) + ':' + paddingLeft(parseInt(spendSeconds % 3600 / 60).toString(), 2) + ':' + paddingLeft((spendSeconds % 3600 % 60).toString(), 2),
                     'MemberAnswers': answersJson

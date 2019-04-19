@@ -17,6 +17,20 @@
             });
 
             $("#Submit_btn").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "api/Exam",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        new Vue({
+                            el: '#examInfo',
+                            data: {
+                                examInfos: JSON.parse(response.d)
+                            },
+                        });
+                    }
+                });
                 window.location = "ExamStart.aspx";
             });
 

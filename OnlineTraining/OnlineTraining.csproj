@@ -464,6 +464,7 @@
     <Compile Include="MemberOpinion.aspx.designer.cs">
       <DependentUpon>MemberOpinion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\ExamSubmitParm.cs" />
     <Compile Include="Model\MemberExamParm.cs" />
     <Compile Include="Model\MemberExamTitle.cs" />
     <Compile Include="MyClass.aspx.cs">

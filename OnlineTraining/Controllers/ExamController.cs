@@ -9,6 +9,6 @@ namespace OnlineTraining.Controllers
 {
     public class ExamController : ApiController
     {
-
+        
     }
 }
