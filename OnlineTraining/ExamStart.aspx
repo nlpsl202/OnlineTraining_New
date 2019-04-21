@@ -18,8 +18,11 @@
             });
 
             var StartTime = moment().format('YYYY/MM/DD HH:mm:ss');
+            var ExamTimeInt = sessionStorage.getItem("ExamTimeInt");
+            var ExamTimeString = sessionStorage.getItem("ExamTimeString");
 
             $("#Submit_btn").click(function () {
+                /*組成會員答案Json字串*/
                 var question_count = $(".question").length;
                 var question_right_count = 0;
                 var answersJson = "[";
@@ -52,16 +55,18 @@
                 }
                 answersJson = answersJson + "]";
 
-                var parm = {
+                /*交卷*/
+                var exam = {
+                    Account: "<%:Session["Account"]%>", ClassNo: "<%:Session["ClassNo"]%>", ExamID: "<%:Session["ExamID"]%>",
                     'ExamScore': 4 * question_right_count,
                     'ExamTime': paddingLeft(parseInt(spendSeconds / 3600).toString(), 2) + ':' + paddingLeft(parseInt(spendSeconds % 3600 / 60).toString(), 2) + ':' + paddingLeft((spendSeconds % 3600 % 60).toString(), 2),
+                    'ExamStartTime': StartTime,
                     'MemberAnswers': answersJson
                 };
-
                 $.ajax({
                     type: "POST",
-                    url: "ExamStart.aspx/SubmitExam",
-                    data: JSON.stringify(parm),
+                    url: "api/Exam",
+                    data: JSON.stringify(exam),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
@@ -70,28 +75,35 @@
                 });
             });
 
+            /*取得題目*/
             $.ajax({
-                type: "POST",
-                url: "ExamStart.aspx/GetQuestionInfo",
+                type: "GET",
+                url: "api/Exam",
+                data: { ExamID: "<%:Session["ExamID"]%>" },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     new Vue({
                         el: '#questionInfo',
                         data: {
-                            questionInfos: JSON.parse(response.d)
+                            questionInfos: JSON.parse(response)
                         },
                     });
+                    $("#questionInfo").css("visibility", 'visible');
+                    $("#loading").hide();
                 }
             });
 
-            var seconds = <%:Session["ExamTimeInt"]%> * 60;
+            /*顯示時間*/
+            $(".ExamTimeString").html(ExamTimeString);
+            var seconds = ExamTimeInt * 60;
             var spendSeconds = 0;
             setInterval(function () {
                 seconds--;
                 spendSeconds++;
                 $("#LeftTime").text(paddingLeft(parseInt(seconds / 3600).toString(), 2) + ':' + paddingLeft(parseInt(seconds % 3600 / 60).toString(), 2) + ':' + paddingLeft((seconds % 3600 % 60).toString(), 2));
                 if (seconds == 0) {
+                    alert('時間到，考試結束！')
                     $('#Submit_btn').trigger('click');
                 }
             }, 1000);
@@ -161,12 +173,12 @@
                 <div class="col-md-12">
                     <div class="col-md-3 col-md-offset-2">
                         <label class="col-md-6">作答時間：</label>
-                        <label class="col-md-6"><%:Session["ExamTime"]%></label>
+                        <label class="col-md-6 ExamTimeString"></label>
                     </div>
 
                     <div class="col-md-3">
                         <label class="col-md-6">剩餘時間：</label>
-                        <label class="col-md-6" id="LeftTime"><%:Session["ExamTime"]%></label>
+                        <label class="col-md-6 ExamTimeString" id="LeftTime"></label>
                     </div>
 
                     <div class="col-md-4">
@@ -182,8 +194,12 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="col-md-12">
-                <div class="col-md-12" id="questionInfo">
+            <div class="col-md-12 text-center" id="loading">
+                <img src="img/loading.gif" />
+            </div>
+
+            <div class="col-md-12" id="questionInfo" style="visibility: hidden;">
+                <div class="col-md-12">
                     <table>
                         <tbody>
                             <tr v-for="item in questionInfos" class="question">

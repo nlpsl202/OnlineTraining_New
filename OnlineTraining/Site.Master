@@ -6,11 +6,10 @@
     <title>OnlineTraining</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<link href="Content/mobile-navbar.css" rel="stylesheet" />-->
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
-    <!--<link href="Content/bootsnipp.min.css" rel="stylesheet" />-->
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/vue.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function (event) {

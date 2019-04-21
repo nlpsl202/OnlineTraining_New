@@ -44,6 +44,7 @@ namespace OnlineTraining
             sqlObj.StoreProcedureName = "SP_Qry_ClassRecord";
             sqlObj.SetupSqlCommand(ref sErrMsg);
             sqlObj.SqlCmd.Parameters["@ClassNo"].Value = HttpContext.Current.Session["ClassNo"].ToString();
+            sqlObj.SqlCmd.Parameters["@ExamID"].Value = HttpContext.Current.Session["ExamID"].ToString();
             sqlObj.SqlCmd.Parameters["@Account"].Value = HttpContext.Current.Session["Account"].ToString();
             try
             {

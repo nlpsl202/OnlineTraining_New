@@ -73,6 +73,13 @@
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li id="li_Default"><a href="Classroom.aspx" style="text-align: center">
@@ -89,7 +96,7 @@
                     </a></li>
                     <li id="li_ClassInfo"><a href="<%:Session["ClassroomBackPage"]%>" style="text-align: center">
                         <span class="glyphicon glyphicon-log-out"></span>
-                        <p>離開</p>
+                        <p>離開教室</p>
                     </a></li>
                 </ul>
             </div>

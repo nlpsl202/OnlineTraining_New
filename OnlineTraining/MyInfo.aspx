@@ -9,6 +9,21 @@
                 $("input[type=password]").val("");
             });
 
+            $.ajax({
+                type: "POST",
+                url: "MyInfo.aspx/GetInfo",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    new Vue({
+                        el: '#Info',
+                        data: {
+                            info: JSON.parse(response.d)
+                        },
+                    });
+                }
+            });
+
             var totalTxb = $('.txb').length;
             $("#Submit_btn").click(function () {
                 for (var i = 0; i < totalTxb; i++) {
@@ -23,7 +38,7 @@
                     return false;
                 }
 
-                var para = { 'OldPassword': $('#OldPsw_txb').val(),'NewPassword': $('#NewPsw_txb').val() };
+                var para = { 'OldPassword': $('#OldPsw_txb').val(), 'NewPassword': $('#NewPsw_txb').val() };
 
                 $.ajax({
                     type: "POST",
@@ -65,35 +80,35 @@
 
             <label>個人資料</label>
 
-            <div class="well">
+            <div class="well" id="Info">
                 <div class="form-group row">
                     <label class="col-md-1">帳號：</label>
-                    <label class="col-md-2">nlpsl202</label>
+                    <label class="col-md-2">{{info.Account}}</label>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-1">姓名：</label>
-                    <label class="col-md-2">Jeff</label>
+                    <label class="col-md-2">{{info.MemberName}}</label>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-1">公司名稱：</label>
-                    <label class="col-md-2">陞泰</label>
+                    <label class="col-md-2">{{info.CompanyName}}</label>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-1">職稱：</label>
-                    <label class="col-md-2">專員</label>
+                    <label class="col-md-2">{{info.Title}}</label>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-1">電子郵件：</label>
-                    <label class="col-md-2">qsc5367899@gmail.com</label>
+                    <label class="col-md-2">{{info.Email}}</label>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-1">電話：</label>
-                    <label class="col-md-2">0912056698</label>
+                    <label class="col-md-2">{{info.Phone}}</label>
                 </div>
 
                 <div class="form-group row">

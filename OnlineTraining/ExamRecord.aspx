@@ -11,7 +11,9 @@
                 if (s.InCallback()) return;
                 var $btn = $(this);
                 s.GetRowValues($btn.attr("data-key"), 'ExamID;ExamNo', function (values) {
-                    location.href = "ExamRecordResult.aspx?" + values[0] + "&" + values[1];
+                    sessionStorage.setItem("ExamID", values[0]);
+                    sessionStorage.setItem("ExamNo", values[1]);
+                    location.href = "ExamRecordResult.aspx";
                 });
             });
         };
@@ -46,7 +48,7 @@
         <div class="col-md-12">
             <div class="form-group row row-bordered">
                 <div class="col-sm-12">
-                    <span>目前頁面 》開班申請報名--開班課程清單</span>
+                    <span>目前頁面 》測驗結果 - 學員考試紀錄</span>
                 </div>
             </div>
 

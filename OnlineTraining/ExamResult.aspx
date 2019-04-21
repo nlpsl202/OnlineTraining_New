@@ -16,7 +16,7 @@
                 window.location = "Classroom.aspx";
             });
 
-            var dataJSON_title = {
+            var title = {
                 Account: "<%:Session["Account"]%>", ClassNo: "<%:Session["ClassNo"]%>",
                 ExamID: "<%:Session["ExamID"]%>", ExamNo: 0,
                 XOLTP: 1
@@ -24,8 +24,8 @@
 
             $.ajax({
                 type: "POST",
-                url: "api/ExamResult",
-                data: JSON.stringify(dataJSON_title),
+                url: "api/MemberExam",
+                data: JSON.stringify(title),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -39,7 +39,7 @@
                 }
             });
 
-            var dataJSON_table = {
+            var answer = {
                 Account: "<%:Session["Account"]%>", ClassNo: "<%:Session["ClassNo"]%>",
                 ExamID: "<%:Session["ExamID"]%>", ExamNo: 0,
                 XOLTP: 2
@@ -47,8 +47,8 @@
 
             $.ajax({
                 type: "POST",
-                url: "api/ExamResult",
-                data: JSON.stringify(dataJSON_table),
+                url: "api/MemberExam",
+                data: JSON.stringify(answer),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -58,7 +58,8 @@
                             examAnswers: JSON.parse(response)
                         },
                     });
-                    $("#dataConent").css("visibility", 'visible');
+                    $("#answerInfo").css("visibility", 'visible');
+                    $("#loading").hide();
                 }
             });
         });
@@ -137,8 +138,12 @@
             </div>
         </nav>
 
-        <div class="container-fluid" id="dataConent" style="visibility: hidden;">
-            <div class="col-md-12">
+        <div class="container-fluid">
+            <div class="col-md-12 text-center" id="loading">
+                <img src="img/loading.gif" />
+            </div>
+
+            <div class="col-md-12" id="answerInfo" style="visibility: hidden;">
                 <div class="col-md-12" id="examInfo">
                     <table class="table-bordered examInfoTable">
                         <tbody>

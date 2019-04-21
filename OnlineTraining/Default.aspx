@@ -33,8 +33,8 @@
             $(s.GetMainElement()).find(".into-classroom").click(function () {
                 if (s.InCallback()) return;
                 var $btn = $(this);
-                s.GetRowValues($btn.attr("data-key"), 'ClassNo', function (values) {
-                    var para = { 'ClassNo': values, 'BackPage': "Default.aspx" };
+                s.GetRowValues($btn.attr("data-key"), 'ClassNo;ExamID', function (values) {
+                    var para = { 'ClassNo': values[0],'ExamID':values[1], 'BackPage': "Default.aspx" };
                     $.ajax({
                         type: "POST",
                         url: "ClassInfo.aspx/IntoClassroom",
@@ -108,6 +108,7 @@
                     <ClientSideEvents Init="initMoreButton" EndCallback="initMoreButton" />
                     <Columns>
                         <dx:BootstrapGridViewDataColumn FieldName="ClassNo" Visible="false" />
+                        <dx:BootstrapGridViewDataColumn FieldName="ExamID" Visible="false" />
                         <dx:BootstrapGridViewDataColumn FieldName="ChapterNo" Visible="false" />
                         <dx:BootstrapGridViewDataColumn FieldName="VideoPath" Visible="false" />
                         <dx:BootstrapGridViewDataColumn Caption="播放課程" CssClasses-DataCell="centerText">

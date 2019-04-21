@@ -68,8 +68,8 @@
             $(s.GetMainElement()).find(".into-classroom").click(function () {
                 if (s.InCallback()) return;
                 var $btn = $(this);
-                s.GetRowValues($btn.attr("data-key"), 'ClassNo', function (values) {
-                    var para = { 'ClassNo': values };
+                s.GetRowValues($btn.attr("data-key"), 'ClassNo;ExamID', function (values) {
+                    var para = { 'ClassNo': values[0]};
                     $.ajax({
                         type: "POST",
                         url: "ClassInfo.aspx/CheckStudent",
@@ -78,7 +78,7 @@
                         dataType: "json",
                         success: function (response) {
                             if (response.d == "isStudent") {
-                                para = { 'ClassNo': values, 'BackPage': "ClassInfo.aspx" };
+                                para = { 'ClassNo': values[0] ,'ExamID':values[1], 'BackPage': "ClassInfo.aspx" };
                                 $.ajax({
                                     type: "POST",
                                     url: "ClassInfo.aspx/IntoClassroom",
@@ -91,7 +91,7 @@
                                 });
                             } else {
                                 if (confirm('您尚未成為本課程學員，請問是否要成為學員?')) {
-                                    para = { 'ClassNo': values, 'BackPage': "ClassInfo.aspx" };
+                                    para = { 'ClassNo': values[0], 'BackPage': "ClassInfo.aspx" };
                                     $.ajax({
                                         type: "POST",
                                         url: "ClassInfo.aspx/BecomeStudent",
@@ -251,6 +251,7 @@
                 <ClientSideEvents Init="initMoreButton" EndCallback="initMoreButton" />
                 <Columns>
                     <dx:BootstrapGridViewDataColumn FieldName="ClassNo" Visible="false" />
+                    <dx:BootstrapGridViewDataColumn FieldName="ExamID" Visible="false" />
                     <dx:BootstrapGridViewDataColumn FieldName="OpenType" Caption="開班屬性" />
                     <dx:BootstrapGridViewDataColumn FieldName="ClassName" Caption="開班名稱" />
                     <dx:BootstrapGridViewDataColumn FieldName="ClassType" Caption="課程屬性" />

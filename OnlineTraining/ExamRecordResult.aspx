@@ -3,13 +3,11 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            var url = location.href;
-            var temp = url.split("?");
-            var vars = temp[1].split("&");
+            var ExamNo = parseInt(sessionStorage.getItem("ExamNo"), 10);
 
-            var dataJSON_title = {
+            var title = {
                 Account: "<%:Session["Account"]%>", ClassNo: "<%:Session["ClassNo"]%>",
-                ExamID: vars[0], ExamNo: Number(vars[1]),
+                ExamID: "<%:Session["ExamID"]%>", ExamNo: ExamNo,
                 XOLTP: 3
             };
 
@@ -19,8 +17,8 @@
 
             $.ajax({
                 type: "POST",
-                url: "api/ExamResult",
-                data: JSON.stringify(dataJSON_title),
+                url: "api/MemberExam",
+                data: JSON.stringify(title),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -33,16 +31,16 @@
                 }
             });
 
-            var dataJSON_table = {
+            var answer = {
                 Account: "<%:Session["Account"]%>", ClassNo: "<%:Session["ClassNo"]%>",
-                ExamID: vars[0], ExamNo: Number(vars[1]),
+                ExamID: "<%:Session["ExamID"]%>", ExamNo: ExamNo,
                 XOLTP: 4
             };
 
             $.ajax({
                 type: "POST",
-                url: "api/ExamResult",
-                data: JSON.stringify(dataJSON_table),
+                url: "api/MemberExam",
+                data: JSON.stringify(answer),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -53,6 +51,7 @@
                         },
                     });
                     $("#dataConent").css("visibility", 'visible');
+                    $("#loading").hide();
                 }
             });
         });
@@ -110,7 +109,11 @@
             </div>
         </div>
 
-        <div class="col-md-12" style="overflow: scroll; height: 700px;visibility: hidden;" id="dataConent">
+        <div class="col-md-12 text-center" id="loading">
+            <img src="img/loading.gif" />
+        </div>
+
+        <div class="col-md-12" style="overflow: scroll; height: 700px; visibility: hidden;" id="dataConent">
             <div class="col-md-12" id="examInfo">
                 <table class="table-bordered examInfoTable">
                     <tbody>

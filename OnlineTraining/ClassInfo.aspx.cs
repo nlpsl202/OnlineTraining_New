@@ -48,11 +48,12 @@ namespace OnlineTraining
         }
 
         [WebMethod]
-        public static string IntoClassroom(string ClassNo, string BackPage)
+        public static string IntoClassroom(string ClassNo,string ExamID, string BackPage)
         {
             try
             {
                 HttpContext.Current.Session["ClassNo"] = ClassNo;
+                HttpContext.Current.Session["ExamID"] = ExamID;
                 HttpContext.Current.Session["ClassroomBackPage"] = BackPage;
                 return "success";
             }

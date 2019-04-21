@@ -284,6 +284,7 @@
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="img\dot.png" />
+    <Content Include="img\loading.gif" />
     <Content Include="Login.aspx" />
     <Content Include="MemberOpinion.aspx" />
     <Content Include="MyClass.aspx" />
@@ -395,7 +396,7 @@
       <DependentUpon>ClassVideo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ExamController.cs" />
-    <Compile Include="Controllers\ExamResultController.cs" />
+    <Compile Include="Controllers\MemberExamController.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -406,6 +407,7 @@
     </Compile>
     <Compile Include="Exam.aspx.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Exam.aspx.designer.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
@@ -433,6 +435,7 @@
     </Compile>
     <Compile Include="ExamStart.aspx.cs">
       <DependentUpon>ExamStart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ExamStart.aspx.designer.cs">
       <DependentUpon>ExamStart.aspx</DependentUpon>
@@ -462,9 +465,8 @@
     <Compile Include="MemberOpinion.aspx.designer.cs">
       <DependentUpon>MemberOpinion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Model\ExamSubmitParm.cs" />
-    <Compile Include="Model\MemberExamParm.cs" />
-    <Compile Include="Model\MemberExamTitle.cs" />
+    <Compile Include="Model\ExamModel.cs" />
+    <Compile Include="Model\MemberExamModel.cs" />
     <Compile Include="MyClass.aspx.cs">
       <DependentUpon>MyClass.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

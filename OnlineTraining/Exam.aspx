@@ -17,35 +17,26 @@
             });
 
             $("#Submit_btn").click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "api/Exam",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        new Vue({
-                            el: '#examInfo',
-                            data: {
-                                examInfos: JSON.parse(response.d)
-                            },
-                        });
-                    }
-                });
                 window.location = "ExamStart.aspx";
             });
 
             $.ajax({
-                type: "POST",
-                url: "Exam.aspx/GetExamInfo",
+                type: "GET",
+                url: "api/Exam",
+                data: { ClassNo:"<%:Session["ClassNo"]%>" },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     new Vue({
                         el: '#examInfo',
                         data: {
-                            examInfos: JSON.parse(response.d)
+                            examInfos: JSON.parse(response)
                         },
                     });
+                    $("#info").css("visibility", 'visible');
+                    $("#loading").hide();
+                    sessionStorage.setItem("ExamTimeString", JSON.parse(response).ExamTimeString);
+                    sessionStorage.setItem("ExamTimeInt", JSON.parse(response).ExamTimeInt);
                 }
             });
         });
@@ -104,7 +95,11 @@
         </nav>
 
         <div class="container-fluid text-center">
-            <div class="col-md-12">
+            <div class="col-md-12 text-center" id="loading">
+                <img src="img/loading.gif" />
+            </div>
+
+            <div class="col-md-12" id="info" style="visibility: hidden;">
                 <div class="form-group row">
                     <ul class="nav nav-tabs">
                         <li id="tab" class="active"><a>考試資訊</a></li>

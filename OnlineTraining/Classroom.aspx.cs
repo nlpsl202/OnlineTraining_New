@@ -14,6 +14,11 @@ namespace OnlineTraining
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            GridViewBind();
+        }
+
+        protected void GridViewBind()
+        {
             string sErrMsg = string.Empty;
             DataTable dataTable = new DataTable();
             DBUtility sqlObj = null;
@@ -36,8 +41,8 @@ namespace OnlineTraining
             {
                 sqlObj.SqlConn.Close();
             }
-            BootstrapGridView1.DataSource = dataTable; //告訴GridView資料來源為誰
-            BootstrapGridView1.DataBind();//綁定     
+            BootstrapGridView1.DataSource = dataTable;
+            BootstrapGridView1.DataBind();
         }
 
         [WebMethod]
@@ -70,20 +75,6 @@ namespace OnlineTraining
             finally
             {
                 sqlObj.SqlConn.Close();
-            }
-        }
-
-        [WebMethod]
-        public static string SetSession(string VideoPath)
-        {
-            try
-            {
-                HttpContext.Current.Session["VideoPath"] = VideoPath;
-                return "success";
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
             }
         }
     }
