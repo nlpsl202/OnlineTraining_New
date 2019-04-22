@@ -34,7 +34,7 @@
                 if (s.InCallback()) return;
                 var $btn = $(this);
                 s.GetRowValues($btn.attr("data-key"), 'ClassNo;ExamID', function (values) {
-                    var para = { 'ClassNo': values[0],'ExamID':values[1], 'BackPage': "Default.aspx" };
+                    var para = { 'ClassNo': values[0], 'ExamID': values[1], 'BackPage': "Default.aspx" };
                     $.ajax({
                         type: "POST",
                         url: "ClassInfo.aspx/IntoClassroom",

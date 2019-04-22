@@ -53,7 +53,7 @@
             </div>
         </nav>
 
-        <object width="800" height="600">
+        <object width="800" height="600" id="player">
             <param name="movie" value='<%:Session["VideoPath"]%>'>
             <param name="allowFullScreen" value="true" />
             <param name="allowscriptaccess" value="always" />

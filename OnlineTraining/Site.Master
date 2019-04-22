@@ -7,9 +7,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-datetimepicker.css" rel="stylesheet" />
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/vue.js"></script>
+    <script src="Scripts/moment.js"></script>
+    <script src="Scripts/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function (event) {
@@ -25,6 +28,28 @@
 
             $('li').click(function () {
                 $('.navbar > li').removeClass("active");
+            });
+
+            function checkSession() {
+                $.ajax({
+                    type: "POST",
+                    url: "Default.aspx/checkSession",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (JSON.parse(response.d).sessionValue == false) {
+                            alert('超過系統閒置時間，請重新登入！');
+                            location.href = "Login.aspx"
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            }
+
+            $(document).on('click', function (e) {
+                checkSession();
             });
         });
     </script>

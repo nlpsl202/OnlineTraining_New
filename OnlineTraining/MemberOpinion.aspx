@@ -6,7 +6,7 @@
             $('#li_MemberOpinion').addClass("active");
 
             $("#Submit_btn").click(function () {
-                if ($('#Opinion').val() == '') {
+                if ($('#Opinion_Body').val() == '') {
                     alert('請輸入內容!');
                     return false;
                 }

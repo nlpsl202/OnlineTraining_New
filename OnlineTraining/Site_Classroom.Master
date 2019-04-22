@@ -29,6 +29,28 @@
             $('li').click(function () {
                 $('.navbar > li').removeClass("active");
             });
+
+            function checkSession() {
+                $.ajax({
+                    type: "POST",
+                    url: "Default.aspx/checkSession",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (JSON.parse(response.d).sessionValue == false) {
+                            alert('超過系統閒置時間，請重新登入！');
+                            location.href = "Login.aspx"
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            }
+
+            $(document).on('click', function (e) {
+                checkSession();
+            });
         });
     </script>
     <style>

@@ -17,7 +17,6 @@ namespace OnlineTraining.Controllers
         public string GetInfo(string ClassNo)
         {
             ExamModel examModel = new ExamModel();
-            //Session["ExamID"] = examModel.GetInfo(ClassNo).ExamID;
             return new JavaScriptSerializer().Serialize(examModel.GetInfo(ClassNo));
         }
 

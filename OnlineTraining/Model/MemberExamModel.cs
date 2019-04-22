@@ -10,6 +10,7 @@ namespace OnlineTraining.Model
 {
     public class MemberExamModel
     {
+        //會員考試紀錄
         public struct MemberExamInfo
         {
             public string ExamName { get; set; }
@@ -26,6 +27,7 @@ namespace OnlineTraining.Model
         public int ExamNo { get; set; }
         public int XOLTP { get; set; }
 
+        //取得會員考試紀錄
         public string GetMemberExam()
         {
             string sErrMsg = string.Empty;

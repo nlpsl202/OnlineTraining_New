@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,6 +13,11 @@ namespace OnlineTraining
 {
     public partial class _Default : Page
     {
+        public class sessionClass
+        {
+            public bool sessionValue { set; get; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string sErrMsg = string.Empty;
@@ -57,6 +64,22 @@ namespace OnlineTraining
             {
                 sqlObj.SqlConn.Close();
             }
+        }
+
+        [WebMethod]
+        public static string checkSession()
+        {
+            sessionClass s = new sessionClass();
+            if (HttpContext.Current.Session["Account"] != null)
+            {
+                s.sessionValue = true;
+            }
+            else
+            {
+                s.sessionValue = false;
+
+            }
+            return new JavaScriptSerializer().Serialize(s);
         }
     }
 }

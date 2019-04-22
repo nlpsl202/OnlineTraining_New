@@ -21,12 +21,28 @@ namespace OnlineTraining
                 StartDate_txb.Text = dt.ToString("yyyy/MM/dd");
                 EndDate_txb.Text = dt.ToString("yyyy/MM/dd");
             }
+            GridViewBind();
+        }
+
+        protected void Search_btn_Click(object sender, EventArgs e)
+        {
+            GridViewBind();
+        }
+
+        protected void GridViewBind()
+        {
             string sErrMsg = string.Empty;
             DataTable dataTable = new DataTable();
             DBUtility sqlObj = null;
             sqlObj = new DBUtility();
             sqlObj.StoreProcedureName = "SP_Qry_ClassInfo";
             sqlObj.SetupSqlCommand(ref sErrMsg);
+            sqlObj.SqlCmd.Parameters["@ClassName"].Value = ClassName_txb.Text;
+            sqlObj.SqlCmd.Parameters["@Instructor"].Value = Instructor_txb.Text;
+            sqlObj.SqlCmd.Parameters["@Organizer"].Value = Organizer_txb.Text;
+            sqlObj.SqlCmd.Parameters["@OpenType"].Value = OpenType_ddl.SelectedValue;
+            sqlObj.SqlCmd.Parameters["@StartType"].Value = StartType_ddl.SelectedValue;
+            sqlObj.SqlCmd.Parameters["@ClassType"].Value = ClassType_ddl.SelectedValue;
             sqlObj.SqlCmd.Parameters["@StartDate"].Value = StartDate_txb.Text;
             sqlObj.SqlCmd.Parameters["@EndDate"].Value = EndDate_txb.Text;
             try
@@ -126,40 +142,6 @@ namespace OnlineTraining
             {
                 return "notStudent";
             }
-        }
-
-        protected void Search_btn_Click(object sender, EventArgs e)
-        {
-            string sErrMsg = string.Empty;
-            DataTable dataTable = new DataTable();
-            DBUtility sqlObj = null;
-            sqlObj = new DBUtility();
-            sqlObj.StoreProcedureName = "SP_Qry_ClassInfo";
-            sqlObj.SetupSqlCommand(ref sErrMsg);
-            sqlObj.SqlCmd.Parameters["@ClassName"].Value = ClassName_txb.Text;
-            sqlObj.SqlCmd.Parameters["@Instructor"].Value = Instructor_txb.Text;
-            sqlObj.SqlCmd.Parameters["@Organizer"].Value = Organizer_txb.Text;
-            sqlObj.SqlCmd.Parameters["@OpenType"].Value = OpenType_ddl.SelectedValue;
-            sqlObj.SqlCmd.Parameters["@StartType"].Value = StartType_ddl.SelectedValue;
-            sqlObj.SqlCmd.Parameters["@ClassType"].Value = ClassType_ddl.SelectedValue;
-            sqlObj.SqlCmd.Parameters["@StartDate"].Value = StartDate_txb.Text;
-            sqlObj.SqlCmd.Parameters["@EndDate"].Value = EndDate_txb.Text;
-            try
-            {
-                sqlObj.SqlConn.Open();
-                SqlDataAdapter da = new SqlDataAdapter(sqlObj.SqlCmd);
-                da.Fill(dataTable);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                sqlObj.SqlConn.Close();
-            }
-            BootstrapGridView1.DataSource = dataTable; //告訴GridView資料來源為誰
-            BootstrapGridView1.DataBind();//綁定     
         }
     }
 }

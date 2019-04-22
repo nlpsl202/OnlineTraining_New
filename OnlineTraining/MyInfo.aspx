@@ -10,15 +10,16 @@
             });
 
             $.ajax({
-                type: "POST",
-                url: "MyInfo.aspx/GetInfo",
+                type: "GET",
+                url: "api/Member",
+                data: { Account:"<%:Session["Account"]%>" },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     new Vue({
                         el: '#Info',
                         data: {
-                            info: JSON.parse(response.d)
+                            info: JSON.parse(response)
                         },
                     });
                 }
@@ -80,35 +81,37 @@
 
             <label>個人資料</label>
 
-            <div class="well" id="Info">
-                <div class="form-group row">
-                    <label class="col-md-1">帳號：</label>
-                    <label class="col-md-2">{{info.Account}}</label>
-                </div>
+            <div class="well">
+                <div id="Info">
+                    <div class="form-group row">
+                        <label class="col-md-1">帳號：</label>
+                        <label class="col-md-2">{{info.Account}}</label>
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-md-1">姓名：</label>
-                    <label class="col-md-2">{{info.MemberName}}</label>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-md-1">姓名：</label>
+                        <label class="col-md-2">{{info.MemberName}}</label>
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-md-1">公司名稱：</label>
-                    <label class="col-md-2">{{info.CompanyName}}</label>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-md-1">公司名稱：</label>
+                        <label class="col-md-2">{{info.CompanyName}}</label>
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-md-1">職稱：</label>
-                    <label class="col-md-2">{{info.Title}}</label>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-md-1">職稱：</label>
+                        <label class="col-md-2">{{info.Title}}</label>
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-md-1">電子郵件：</label>
-                    <label class="col-md-2">{{info.Email}}</label>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-md-1">電子郵件：</label>
+                        <label class="col-md-2">{{info.Email}}</label>
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-md-1">電話：</label>
-                    <label class="col-md-2">{{info.Phone}}</label>
+                    <div class="form-group row">
+                        <label class="col-md-1">電話：</label>
+                        <label class="col-md-2">{{info.Phone}}</label>
+                    </div>
                 </div>
 
                 <div class="form-group row">

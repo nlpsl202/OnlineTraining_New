@@ -168,9 +168,9 @@
   <ItemGroup>
     <Content Include="App_Data\mail.txt" />
     <Content Include="ArchiveDocList.aspx" />
+    <Content Include="ClassApply.aspx" />
     <Content Include="ClassInfo.aspx" />
     <Content Include="Classroom.aspx" />
-    <Content Include="Classroom_backup.aspx" />
     <Content Include="Classroom_Detail.aspx" />
     <Content Include="Classroom_Record.aspx" />
     <Content Include="ClassVideo.aspx" />
@@ -353,6 +353,13 @@
     <Compile Include="ArchiveDocList.aspx.designer.cs">
       <DependentUpon>ArchiveDocList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ClassApply.aspx.cs">
+      <DependentUpon>ClassApply.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClassApply.aspx.designer.cs">
+      <DependentUpon>ClassApply.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ClassInfo.aspx.cs">
       <DependentUpon>ClassInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -366,13 +373,6 @@
     </Compile>
     <Compile Include="Classroom.aspx.designer.cs">
       <DependentUpon>Classroom.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Classroom_backup.aspx.cs">
-      <DependentUpon>Classroom_backup.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Classroom_backup.aspx.designer.cs">
-      <DependentUpon>Classroom_backup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classroom_Detail.aspx.cs">
       <DependentUpon>Classroom_Detail.aspx</DependentUpon>
@@ -395,7 +395,9 @@
     <Compile Include="ClassVideo.aspx.designer.cs">
       <DependentUpon>ClassVideo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MemberExamController.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="Default.aspx.cs">
@@ -465,7 +467,9 @@
     <Compile Include="MemberOpinion.aspx.designer.cs">
       <DependentUpon>MemberOpinion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\ClassModel.cs" />
     <Compile Include="Model\ExamModel.cs" />
+    <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Model\MemberExamModel.cs" />
     <Compile Include="MyClass.aspx.cs">
       <DependentUpon>MyClass.aspx</DependentUpon>

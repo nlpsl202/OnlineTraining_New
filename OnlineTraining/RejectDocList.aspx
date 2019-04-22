@@ -9,10 +9,6 @@
         });
     </script>
     <style>
-        label {
-            margin-top: 7px;
-        }
-
         .row-bordered:after {
             content: "";
             display: block;
@@ -27,17 +23,6 @@
                     <span>目前頁面 》被退回文件</span>
                 </div>
             </div>
-
-            <dx:BootstrapGridView ID="BootstrapGridView1" runat="server">
-                <Columns>
-                    <dx:BootstrapGridViewDataColumn FieldName="ClassNo" Visible="false" />
-                    <dx:BootstrapGridViewDataColumn FieldName="ClassName" Caption="開班名稱" />
-                    <dx:BootstrapGridViewDataColumn FieldName="OpenType" Caption="開班屬性" />
-                    <dx:BootstrapGridViewDataColumn FieldName="ClassType" Caption="課程屬性" />
-                    <dx:BootstrapGridViewDataColumn FieldName="Date" Caption="課程日期" />
-                    <dx:BootstrapGridViewDataColumn FieldName="Pass" Caption="通過狀態" />
-                </Columns>
-            </dx:BootstrapGridView>
         </div>
     </div>
 </asp:Content>

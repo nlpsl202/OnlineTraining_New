@@ -9,6 +9,7 @@ namespace OnlineTraining.Model
 {
     public class ExamModel
     {
+        //題目
         public struct ExamQuestion
         {
             public string QuestionNo { get; set; }
@@ -21,6 +22,7 @@ namespace OnlineTraining.Model
             public string Answer { get; set; }
         }
 
+        //考試資訊
         public struct ExamInfo
         {
             public string ExamID { get; set; }
@@ -80,7 +82,7 @@ namespace OnlineTraining.Model
             return examInfo;
         }
 
-        //取得考試題目
+        //取得題目
         public List<ExamQuestion> GetQuestion(string ExamID)
         {
             List<ExamQuestion> questions = new List<ExamQuestion>();
